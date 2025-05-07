@@ -41,8 +41,21 @@ document.addEventListener('click', (e) => {
   const btn = e.target.closest('.removeBtn');
   if (btn) {
     btn.parentElement.remove();
+    const container = document.querySelectorAll('.container');
+    handleEmptyMessage(container);
   }
 });
+
+function handleEmptyMessage(container) {
+  const visibleContainers = [...container].filter(cont => !cont.classList.contains('hidden'));
+  const message = document.getElementById('emptyMessage');
+
+    if (visibleContainers.length === 0) {
+      message.classList.remove('hidden');
+    } else {
+      message.classList.add('hidden');
+    }
+}
 
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.checkboxBtn');
@@ -52,7 +65,6 @@ document.addEventListener('click', (e) => {
     if(container) {
       const current = container.getAttribute('data-toggled');
       container.setAttribute('data-toggled', current === 'true' ? 'false' : 'true');
-      saveToggleStates();
     }
   }
 });
@@ -83,14 +95,7 @@ btn.forEach((but) => {
             break;
         }
       })
-      const visibleContainers = [...container].filter(cont => !cont.classList.contains('hidden'));
-      const message = document.getElementById('emptyMessage');
-
-      if (visibleContainers.length === 0) {
-        message.classList.remove('hidden');
-      } else {
-        message.classList.add('hidden');
-      }
+      handleEmptyMessage(container)
     }
   })
 })
