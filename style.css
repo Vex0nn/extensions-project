@@ -1,0 +1,337 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Font;
+}
+
+:root {
+    --bg: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);
+    --header-bg-color: hsl(200, 60%, 99%);
+    --header-btn-bg: hsl(0, 0%, 93%);
+    --bg-img: url('assets/images/icon-moon.svg');
+    --header-btn-bg-hover: hsl(0, 0%, 88%);
+    --container-border: hsl(200, 6%, 90%);
+    --container-bg: hsl(200, 60%, 99%);
+    --remove-btn-hover: hsl(0, 0%, 97%);
+    --slider-bg: hsl(0, 0%, 78%);
+    --btn-bg: white;
+    --toggled-color: white;
+    --pa-color: hsl(0, 0.00%, 36.90%);
+    --title-color: black;
+    --fill-color: #091540;
+}
+
+body[data-theme="dark"] {
+    --bg: linear-gradient(180deg, #040918 0%, #091540 100%);
+    --header-bg-color: hsl(226, 19%, 22%);
+    --header-btn-bg: hsl(228, 14%, 33%);
+    --bg-img: url('assets/images/icon-sun.svg');
+    --header-btn-bg-hover: hsl(227, 12%, 38%);
+    --container-border: hsl(226, 1%, 30%);
+    --container-bg: hsl(226, 25%, 17%);
+    --remove-btn-hover: hsl(226, 11%, 37%);
+    --slider-bg: hsl(226, 11%, 37%);
+    --btn-bg: hsl(227, 11%, 24%);
+    --toggled-color: black;
+    --pa-color: rgb(194, 194, 194);
+    --title-color: white;
+    --fill-color: #fff;
+}
+
+#emptyMessage {
+    color: var(--title-color);
+}
+
+.title h1 {
+    color: var(--title-color);
+}
+
+.container h3 {
+    color: var(--title-color);
+}
+
+@font-face {
+    font-family: 'Font';
+    src: url(assets/fonts/NotoSans-VariableFont_wdth\,wght.ttf);
+}
+
+body {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 15px 30px 15px;
+    width: 80%;
+    height: 80px;
+    background-color: var(--header-bg-color);
+    margin: 40px 0px 20px 0px;
+    border-radius: 20px;
+}
+
+header svg {
+    fill: var(--fill-color)
+}
+
+header button {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--header-btn-bg);
+    background-image: var(--bg-img);
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+header button:hover {
+    transition: all .05s ease-in-out;
+    cursor: pointer;
+    background-color: var(--header-btn-bg-hover);
+    transform: translateY(-1px);
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 80%;
+    gap: 10px;
+    margin-bottom: 50px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 35px;
+    margin-bottom: 25px;
+}
+
+.scrollToTop {
+    z-index: 99;
+    display: none;
+    position: fixed;
+    border: 1px solid var(--container-border);
+    color: var(--title-color);
+    background-color: var(--container-bg);
+    width: 50px;
+    height: 50px;
+    bottom: 50px;
+    right: 50px;
+    border-radius: 10px;
+    transition: all 0.1s ease-in-out;
+    justify-content: center;
+    align-items: center;
+}
+
+.scrollToTop:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+    background-color: var(--header-btn-bg-hover);
+}
+
+.scrollToTop svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 1136px) {
+    main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .scrollToTop {
+        right: 30px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .scrollToTop {
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+    .scrollToTop {
+        width: 35px;
+        height: 35px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 590px) {
+    .title {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 390px) {
+    header button {
+        width: 38px;
+        height: 38px;
+    }
+    header svg {
+        width: 170px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 325px) {
+    main {
+        margin-right: 10px;
+    }
+}
+
+.container {
+    display: grid;
+    grid-template-areas: 
+    "pic title"
+    "remove toggle";
+    border: 1px solid var(--container-border);
+    padding: 20px;
+    background-color: var(--container-bg);
+    border-radius: 20px;
+    row-gap: 40px;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: grid;
+}
+
+.pic {
+    grid-area: pic;
+    aspect-ratio: 1/1;
+    width: 60px;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    grid-area: title;
+    gap: 5px;
+    justify-content: center;
+}
+
+.removeBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 80px;
+    border: 1px solid var(--container-border);
+    border-radius: 20px;
+    background-color: var(--container-bg);
+    padding: 15px;
+    grid-area: remove;
+    color: var(--title-color);
+}
+
+.removeBtn:hover {
+    transition: all .05s ease-in-out;
+    background-color: var(--remove-btn-hover);
+    cursor: pointer;
+    transform: translateY(-1px);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    justify-self: end;
+  }
+  
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--slider-bg);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 1px;
+    bottom: 2.5px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.pa {
+    color: var(--pa-color);
+}
+  
+input:checked + .slider {
+    background-color: hsl(3, 86%, 64%);
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px hsl(3, 86%, 64%);
+}
+  
+input:checked + .slider:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+}
+  
+.slider.round {
+    border-radius: 34px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.btn {
+    padding: 10px 15px 10px 15px;
+    border-radius: 17px;
+    border: 1px solid var(--container-border);
+    background-color: var(--btn-bg);
+    transition: all .1s ease-in-out;
+    color: var(--title-color);
+}
+
+.btn:hover {
+    cursor: pointer;
+    transform: translateY(-1px);
+}
+
+.toggled {
+    background-color: hsl(3, 86%, 64%);
+    color: var(--toggled-color);
+}
