@@ -4,6 +4,11 @@ let themeToggle = document.querySelector('.themeToggle');
 let btn = document.querySelectorAll('.btn');
 let scrollToTop = document.querySelector('.scrollToTop');
 let id = 0;
+const modal = document.querySelector('.modal');
+const dim = document.querySelector('.dim');
+const xBtn = modal.querySelector('svg');
+const noBtn = document.querySelector('.noBtn');
+const yesBtn = document.querySelector('.yesBtn');
 
 fetch('data.json')
   .then(response => response.json())
@@ -40,12 +45,34 @@ function changeTheme() {
   localStorage.setItem('theme', next)
 }
 
+function hideModal() {
+  modal.classList.remove('modalShown');
+  dim.classList.remove('modalShown');
+}
+
+dim.addEventListener('click', () => {
+  hideModal();
+})
+
+xBtn.addEventListener('click', () => {
+  hideModal();
+})
+
+noBtn.addEventListener('click', () => {
+  hideModal();
+})
+
 document.addEventListener('click', (e) => {
   const btn = e.target.closest('.removeBtn');
   if (btn) {
-    btn.parentElement.remove();
-    const container = document.querySelectorAll('.container');
-    handleEmptyMessage(container);
+    modal.classList.add('modalShown');
+    dim.classList.add('modalShown');
+    yesBtn.addEventListener('click', () => {
+      btn.parentElement.remove();
+      const container = document.querySelectorAll('.container');
+      handleEmptyMessage(container);
+      hideModal();
+    })
   }
 });
 
