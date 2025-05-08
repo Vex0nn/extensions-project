@@ -3,6 +3,7 @@ let body = document.querySelector('body');
 let themeToggle = document.querySelector('.themeToggle');
 let btn = document.querySelectorAll('.btn');
 let scrollToTop = document.querySelector('.scrollToTop');
+let id = 0;
 
 fetch('data.json')
   .then(response => response.json())
@@ -24,6 +25,8 @@ fetch('data.json')
       </label>
       `
       container.className = 'container'
+      container.id = id;
+      id++;
       container.setAttribute('data-toggled', false)
       main.appendChild(container)
     });
@@ -65,6 +68,7 @@ document.addEventListener('click', (e) => {
     if(container) {
       const current = container.getAttribute('data-toggled');
       container.setAttribute('data-toggled', current === 'true' ? 'false' : 'true');
+      setLocalStorageToggle();
     }
   }
 });
@@ -100,9 +104,24 @@ btn.forEach((but) => {
   })
 })
 
-window.onload = () => {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  document.body.setAttribute('data-theme', savedTheme)
+function setLocalStorageToggle() {
+  const container = document.querySelectorAll('.container');
+  container.forEach(cont => {
+    localStorage.setItem(`container-${cont.id}`, cont.getAttribute('data-toggled'));
+  })
+}
+
+function getLocalStorageToggle() {
+  const container = document.querySelectorAll('.container');
+  container.forEach(cont => {
+    const savedVisibility = localStorage.getItem(`container-${cont.id}`) || 'false';
+    cont.setAttribute('data-toggled', savedVisibility);
+    if(cont.getAttribute('data-toggled') === 'true') {
+      cont.querySelector('.checkboxBtn').checked = true;
+    } else {
+      cont.querySelector('.checkboxBtn').checked = false;
+    }
+  })
 }
 
 window.onscroll = () => {
@@ -116,3 +135,15 @@ window.onscroll = () => {
 function scrollTopFunc() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.body.setAttribute('data-theme', savedTheme);
+  const observer = new MutationObserver(() => {
+    if (document.querySelector('.container')) {
+      getLocalStorageToggle();
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+})
