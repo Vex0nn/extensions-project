@@ -80,8 +80,10 @@ body[data-theme="dark"] {
     cursor: pointer;
 }
 
-.modalHeadings {
-    margin-top: 5px;
+.modal label {
+    color: var(--title-color);
+    font-size: 14px;
+    font-family: Font;
 }
 
 .modal h2, h4 {

@@ -17,7 +17,7 @@ fetch('data.json')
       let container = document.createElement('div');
       container.innerHTML = `
       <div class='pic'>
-        <img src='${tool.logo}'/>
+        <img alt='${tool.name} logo' src='${tool.logo}'/>
       </div>
       <div class='data'>
         <h3>${tool.name}</h3>
@@ -25,7 +25,7 @@ fetch('data.json')
       </div>
       <button class="removeBtn">Remove</button>
       <label class="switch">
-        <input type="checkbox" class='checkboxBtn'>
+        <input aria-label="checkbox" type="checkbox" class='checkboxBtn'>
         <span class="slider round"></span>
       </label>
       `
